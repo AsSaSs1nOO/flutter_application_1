@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/question.dart';
+import 'package:flutter_application_1/score.dart';
+
+import 'reponse.dart';
 
 void main() {
   runApp(MyTest());
@@ -24,24 +28,27 @@ class _MyTestState extends State<MyTest> {
       "reponses": [
         {"answer": "Dodge", "score": 6},
         {"answer": "Mercedes", "score": 9},
-        {"answer": "BMW", "score": 8}
+        {"answer": "BMW", "score": 8},
+        {"answer": "Tesla", "score": 7}
       ]
     },
     {
       "Question": "what's ur favorite pet ?",
       "reponses": [
         {"answer": "cat", "score": 2},
-        {"answer": "dog", "score": 3},
+        // {"answer": "dog", "score": 3},
         {"answer": "Bird", "score": 0}
       ]
     },
   ];
 
   int index = 0;
+  int scorefinal = 0;
 
-  questionAnswer() {
+  questionAnswer(int score) {
     setState(() {
       index++;
+      scorefinal += score;
     });
   }
 
@@ -50,54 +57,22 @@ class _MyTestState extends State<MyTest> {
     // TODO: implement build
     return MaterialApp(
       home: Scaffold(
-        body: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: Text(question[index]["Question"].toString(),
-                  style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold)),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  print(index);
-                  questionAnswer();
-                },
-                child: Text("Reponse 1"),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  questionAnswer();
-                },
-                child: Text("Reponse 2"),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  questionAnswer();
-                },
-                child: Text("Reponse 3"),
-              ),
-            )
-          ],
-        ),
+        body: index < question.length
+            ? Column(
+                children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Question(question[index]["Question"].toString()),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ...(question[index]["reponses"] as List<Map<String, Object>>)
+                      .map((e) => Reponse(questionAnswer,
+                          e["answer"].toString(), e["score"] as int)),
+                ],
+              )
+            : Score(scorefinal),
         appBar: AppBar(
           title: Text("Quiz"),
           actions: [

@@ -41,3 +41,4 @@ samples, guidance on mobile development, and a full API reference.
 -Ajouter un floatting actionButton  
 -Dans le body du scaffold  ajouter widget text et trois elevatedButton
 -Ameliore le layot le widget countainer(margin) et sizeBox(height)
+- Extraire la partie question dans un widget externe
