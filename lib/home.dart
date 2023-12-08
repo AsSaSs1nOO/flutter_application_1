@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/question.dart';
+import 'package:flutter_application_1/mydrawer.dart';
 import 'package:flutter_application_1/score.dart';
 
+
+import 'question.dart';
 import 'reponse.dart';
 
 
@@ -49,6 +51,15 @@ class _MyTestState extends State<HomePage> {
       scorefinal += score;
     });
   }
+  
+  resetQuiz(){
+    setState(() {
+       index = 0 ;
+    });
+   
+
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +81,7 @@ class _MyTestState extends State<HomePage> {
                           e["answer"].toString(), e["score"] as int)),
                 ],
               )
-            : Score(scorefinal),
+            : Score(scorefinal,resetQuiz),
         appBar: AppBar(
           title: Text("Quiz"),
           actions: [
@@ -83,13 +94,15 @@ class _MyTestState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 print("Icon button alarm pressed");
+                Navigator.pop(context);
               },
-              icon: Icon(Icons.alarm),
+
+              icon: Icon(Icons.arrow_back),
             ),
           ],
           // backgroundColor: Colors.purple,
         ),
-        drawer: Drawer(),
+        drawer: Mydrawer(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             print("FloatingActionButton  pressed");
